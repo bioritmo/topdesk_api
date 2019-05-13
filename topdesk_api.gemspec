@@ -7,7 +7,7 @@ Gem::Specification.new do |spec|
   spec.name          = "topdesk_api"
   spec.version       = TopdeskApi::VERSION
   spec.authors       = ["Juarez Lustosa"]
-  spec.email         = ["juarez.lustosa@codeminer42.com"]
+  spec.email         = ["juarez.lustosa@codeminer42.com, github@bioritmo.com.br"]
 
   spec.summary       = 'Topdesk REST API Client'
   spec.description   = 'Ruby wrapper for the REST API at https://www.topdesk.com/us. Documentation at https://developers.topdesk.com/'
