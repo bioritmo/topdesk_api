@@ -10,11 +10,12 @@ gem "rubocop", "~> 0.69.0"
 gem "rubocop-performance"
 gem "rubocop-rspec"
 gem "vcr"
+gem "guard"
+gem "guard-rspec"
 
 group :test do
   gem "simplecov"
   gem "byebug"
-  gem "guard"
 end
 
 gemspec

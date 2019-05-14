@@ -9,6 +9,7 @@ AllCops:
     - 'vendor/**/*'
     - 'spec/fixtures/**/*'
     - 'tmp/**/*'
+    - 'Guardfile'
   TargetRubyVersion: 2.6
 
 Naming/PredicateName:

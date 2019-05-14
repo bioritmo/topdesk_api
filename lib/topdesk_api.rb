@@ -1,6 +1,3 @@
-require "topdesk_api/version"
+module TopdeskAPI; end
 
-module TopdeskApi
-  class Error < StandardError; end
-  # Your code goes here...
-end
+require 'topdesk_api/client'
