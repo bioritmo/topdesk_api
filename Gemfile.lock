@@ -25,6 +25,11 @@ GEM
       pry (>= 0.9.12)
       shellany (~> 0.0)
       thor (>= 0.18.1)
+    guard-compat (1.2.1)
+    guard-rspec (4.7.3)
+      guard (~> 2.1)
+      guard-compat (~> 1.1)
+      rspec (>= 2.99.0, < 4.0)
     jaro_winkler (1.5.2)
     json (2.2.0)
     listen (3.1.5)
@@ -92,6 +97,7 @@ DEPENDENCIES
   bundler (~> 1.17)
   byebug
   guard
+  guard-rspec
   rake
   rspec
   rubocop (~> 0.69.0)
