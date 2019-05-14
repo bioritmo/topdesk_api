@@ -8,7 +8,7 @@ module TopdeskAPI
     attr_reader :config
 
     def initialize
-      raise ArgumentError, "block not given" unless block_given?
+      raise ArgumentError, 'block not given' unless block_given?
 
       @config = TopdeskAPI::Configuration.new
       yield config
@@ -19,7 +19,6 @@ module TopdeskAPI
     # @return [Faraday::Connection] Faraday connection for the client
     def connection
       @connection ||= build_connection
-      return @connection
     end
 
     private

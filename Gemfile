@@ -13,7 +13,6 @@ gem "vcr"
 gem "guard"
 gem "guard-rspec"
 
-
 group :test do
   gem "simplecov"
   gem "byebug"
