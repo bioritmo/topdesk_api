@@ -20,7 +20,7 @@ module TopdeskAPI
       @connection ||= build_connection
     end
 
-    def tickets(params = {})
+    def ticket(params = {})
       TopdeskAPI::Resources::Ticket.new(self, params)
     end
 
