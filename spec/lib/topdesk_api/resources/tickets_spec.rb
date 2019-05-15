@@ -2,14 +2,15 @@ RSpec.describe TopdeskAPI::Resources::Tickets do
   describe 'create' do
     let(:client) do
       TopdeskAPI::Client.new do |config|
-        config.url = "https://example.topdesk.com/"
+        config.url = 'https://example.topdesk.com/'
       end
     end
-    let(:params) { { caller: { id: '1' } } }
+    let(:params) { { :caller => { :id => '1' } } }
     let(:ticket) { described_class.new(client, params) }
     let(:request_post) do
-      stub_request(:post, "https://example.topdesk.com/tas/api/incidents/")
+      stub_request(:post, 'https://example.topdesk.com/tas/api/incidents/')
     end
+
     it 'make connection' do
       request_post
       ticket.create

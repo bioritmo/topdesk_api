@@ -1,4 +1,3 @@
-
 RSpec.describe TopdeskAPI::Middleware::Response::RaiseError do
   let(:client) do
     TopdeskAPI::Client.new do |config|
@@ -7,8 +6,8 @@ RSpec.describe TopdeskAPI::Middleware::Response::RaiseError do
   end
 
   context 'with a failed connection' do
-    context 'connection failed' do
-      before(:each) do
+    context 'when connection failed' do
+      before do
         stub_request(:any, /.*/).to_raise(Faraday::Error::ConnectionFailed)
       end
 
@@ -19,10 +18,8 @@ RSpec.describe TopdeskAPI::Middleware::Response::RaiseError do
       end
     end
 
-    context 'connection timeout' do
-      before(:each) do
-        stub_request(:any, /.*/).to_timeout
-      end
+    context 'when connection timeout' do
+      before { stub_request(:any, /.*/).to_timeout }
 
       it 'raise NetworkError' do
         expect { client.connection.get '/non_existent' }.to(
@@ -32,12 +29,15 @@ RSpec.describe TopdeskAPI::Middleware::Response::RaiseError do
     end
   end
 
-  context 'status errors' do
-    let(:body) { "" }
+  context 'when status errors' do
+    let(:body) { '' }
 
-    before(:each) do
-      stub_request(:any, /.*/).to_return(:status => status, :body => body,
-        :headers => { :content_type => "application/json" })
+    before do
+      stub_request(:any, /.*/).to_return(
+        :status => status,
+        :body => body,
+        :headers => { :content_type => 'application/json' }
+      )
     end
 
     context 'with status = 404' do
@@ -101,14 +101,10 @@ RSpec.describe TopdeskAPI::Middleware::Response::RaiseError do
         let(:body) { JSON.dump(:details => 'hello') }
 
         it 'return RecordInvalid with proper message' do
-          begin
-            client.connection.get '/non_existent'
-          rescue TopdeskAPI::Error::RecordInvalid => e
-            expect(e.errors).to eq('hello')
-            expect(e.to_s).to eq('TopdeskAPI::Error::RecordInvalid: hello')
-          else
-            fail
-          end
+          client.connection.get '/non_existent'
+        rescue TopdeskAPI::Error::RecordInvalid => e
+          expect(e.errors).to eq('hello')
+          expect(e.to_s).to eq('TopdeskAPI::Error::RecordInvalid: hello')
         end
       end
     end
@@ -126,14 +122,10 @@ RSpec.describe TopdeskAPI::Middleware::Response::RaiseError do
         let(:body) { JSON.dump(:description => 'this file is big') }
 
         it 'return RecordInvalid with proper message' do
-          begin
-            client.connection.get '/non_existent'
-          rescue TopdeskAPI::Error::RecordInvalid => e
-            expect(e.errors).to eq('this file is big')
-            expect(e.to_s).to eq('TopdeskAPI::Error::RecordInvalid: this file is big')
-          else
-            fail
-          end
+          client.connection.get '/non_existent'
+        rescue TopdeskAPI::Error::RecordInvalid => e
+          expect(e.errors).to eq('this file is big')
+          expect(e.to_s).to eq('TopdeskAPI::Error::RecordInvalid: this file is big')
         end
       end
     end

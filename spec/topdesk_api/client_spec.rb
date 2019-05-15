@@ -35,7 +35,7 @@ RSpec.describe TopdeskAPI::Client do
     end
 
     it 'be initialized on first call to #connection' do
-      expect(client.connection).to be_instance_of(Faraday::Connection)
+      expect(client.connection.instance_of?(Faraday::Connection)).to be(true)
     end
   end
 end

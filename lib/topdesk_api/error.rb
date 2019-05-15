@@ -19,9 +19,7 @@ module TopdeskAPI
       def initialize(*)
         super
 
-        if response[:body].is_a?(Hash)
-          @errors = response[:body]["details"] || response[:body]["description"]
-        end
+        @errors = response[:body]['details'] || response[:body]['description'] if response[:body].is_a?(Hash)
 
         @errors ||= {}
       end

@@ -11,9 +11,7 @@ module TopdeskAPI
 
           return unless type == 'application/json'
 
-          unless env[:body].strip.empty?
-            env[:body] = JSON.parse(env[:body])
-          end
+          env[:body] = JSON.parse(env[:body]) unless env[:body].strip.empty?
         end
       end
     end
