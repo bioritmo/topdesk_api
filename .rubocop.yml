@@ -99,7 +99,10 @@ Metrics/MethodLength:
   Enabled: false
 
 RSpec/PredicateMatcher:
-  EnforcedStyle: explicit
+  EnforcedStyle: inflected
 
 RSpec/NestedGroups:
   Max: 7
+
+RSpec/MultipleExpectations:
+  Max: 2
