@@ -1,4 +1,4 @@
-require 'byebug'
+
 RSpec.describe TopdeskAPI::Middleware::Response::RaiseError do
   let(:client) do
     TopdeskAPI::Client.new do |config|
