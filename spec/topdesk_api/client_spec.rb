@@ -19,7 +19,7 @@ RSpec.describe TopdeskAPI::Client do
     end
 
     it 'handle valid url' do
-      expect(client).not_to raise_error
+      expect { client }.not_to raise_error
     end
   end
 
@@ -35,7 +35,7 @@ RSpec.describe TopdeskAPI::Client do
     end
 
     it 'be initialized on first call to #connection' do
-      expect(client.connection).to instance_of?(Faraday::Connection)
+      expect(client.connection).to be_instance_of(Faraday::Connection)
     end
   end
 end
