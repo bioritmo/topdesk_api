@@ -1,5 +1,6 @@
 require "bundler/setup"
 require "topdesk_api"
+require 'webmock/rspec'
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
@@ -10,5 +11,19 @@ RSpec.configure do |config|
 
   config.expect_with :rspec do |c|
     c.syntax = :expect
+  end
+
+  def dump_json(body = {})
+    JSON.dump(body)
+  end
+
+  def stub_json(verb, path_matcher, body = dump_json, options = {})
+    stub_request(verb, path_matcher).to_return(
+      {
+        :body => body,
+        :headers => { :content_type => "application/json",
+                      :content_length => body.size }
+      }.merge(options)
+    )
   end
 end

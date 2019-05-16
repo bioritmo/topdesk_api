@@ -7,35 +7,35 @@ class SimpleClient < TopdeskAPI::Client
 end
 
 RSpec.describe TopdeskAPI::Client do
-  context 'when initialize' do
-    let(:client) do
-      described_class.new do |config|
-        config.url = 'https://example.topdesk.com/api/v1'
-      end
+  let(:client) do
+    described_class.new do |config|
+      config.url = 'https://example.topdesk.com/api/v1'
     end
+  end
 
+  context 'when initialize' do
     it 'require a block' do
       expect { described_class.new }.to raise_error(ArgumentError)
     end
 
     it 'handle valid url' do
-      expect(client).not_to raise_error
+      expect { client }.not_to raise_error
     end
   end
 
   context 'when connection' do
-    let(:client) do
-      described_class.new do |config|
-        config.url = 'https://example.topdesk.com/api/v1'
-      end
-    end
-
     it 'initially be false' do
       expect(client.instance_variable_get(:@connection)).to be_falsey
     end
 
     it 'be initialized on first call to #connection' do
-      expect(client.connection).to instance_of?(Faraday::Connection)
+      expect(client.connection.instance_of?(Faraday::Connection)).to be(true)
+    end
+  end
+
+  context 'when call ticket' do
+    it 'initially ticket class' do
+      expect(client.ticket.instance_of?(TopdeskAPI::Resources::Ticket)).to be(true)
     end
   end
 end

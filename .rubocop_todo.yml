@@ -86,3 +86,5 @@ Style/StringLiterals:
 # URISchemes: http, https
 Metrics/LineLength:
   Max: 134
+Metrics/AbcSize:
+  Max: 20
