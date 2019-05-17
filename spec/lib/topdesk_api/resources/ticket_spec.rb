@@ -13,7 +13,7 @@ RSpec.describe TopdeskAPI::Resources::Ticket do
 
     it 'make connection' do
       request_post
-      ticket.create
+      ticket.create(params)
       expect(request_post).to have_been_requested
     end
   end

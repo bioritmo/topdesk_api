@@ -8,8 +8,9 @@ module TopdeskAPI
         @params = params
       end
 
-      def create
+      def create(params)
         client.connection.post('/tas/api/incidents/') do |req|
+          req.headers['Content-Type'] = 'application/json'
           req.body = params.to_json
         end
       end
