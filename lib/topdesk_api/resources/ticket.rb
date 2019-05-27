@@ -20,8 +20,8 @@ module TopdeskAPI
 
       def update!
         params = {
-          :action => action,
-          :processingStatus => { :id => processing_status }
+          action: action,
+          processingStatus: { id: processing_status }
         }
 
         client.connection.put("/tas/api/incidents/id/#{id}") do |req|

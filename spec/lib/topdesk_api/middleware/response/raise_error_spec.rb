@@ -34,9 +34,9 @@ RSpec.describe TopdeskAPI::Middleware::Response::RaiseError do
 
     before do
       stub_request(:any, /.*/).to_return(
-        :status => status,
-        :body => body,
-        :headers => { :content_type => 'application/json' }
+        status: status,
+        body: body,
+        headers: { content_type: 'application/json' }
       )
     end
 
@@ -98,7 +98,7 @@ RSpec.describe TopdeskAPI::Middleware::Response::RaiseError do
       end
 
       context 'with a body' do
-        let(:body) { JSON.dump(:details => 'hello') }
+        let(:body) { JSON.dump(details: 'hello') }
 
         it 'return RecordInvalid with proper message' do
           client.connection.get '/non_existent'
@@ -119,7 +119,7 @@ RSpec.describe TopdeskAPI::Middleware::Response::RaiseError do
       end
 
       context 'with a body' do
-        let(:body) { JSON.dump(:description => 'this file is big') }
+        let(:body) { JSON.dump(description: 'this file is big') }
 
         it 'return RecordInvalid with proper message' do
           client.connection.get '/non_existent'

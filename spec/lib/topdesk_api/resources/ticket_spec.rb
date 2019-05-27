@@ -7,15 +7,15 @@ RSpec.describe TopdeskAPI::Resources::Ticket do
 
   describe 'create' do
     let(:id) { '1' }
-    let(:params) { { :caller => { :id => id } } }
+    let(:params) { { caller: { id: id } } }
     let(:ticket) { described_class.new(client, params) }
-    let(:return_body) { { :id => id }.to_json }
+    let(:return_body) { { id: id }.to_json }
     let(:request_post) do
       stub_request(
         :post,
         'https://example.topdesk.com/tas/api/incidents/'
-      ).to_return(:headers => { :content_type => 'application/json' },
-                  :body => return_body)
+      ).to_return(headers: { content_type: 'application/json' },
+                  body: return_body)
     end
 
     it 'make connection' do
@@ -35,14 +35,14 @@ RSpec.describe TopdeskAPI::Resources::Ticket do
 
   describe 'update!' do
     let(:id) { '1' }
-    let(:params) { { :id => id } }
+    let(:params) { { id: id } }
     let(:ticket) { described_class.new(client, params) }
     let(:request_get) do
       stub_request(
         :get,
         "https://example.topdesk.com/tas/api/incidents/id/#{id}"
-      ).to_return(:headers => { :content_type => 'application/json' },
-                  :body => return_body)
+      ).to_return(headers: { content_type: 'application/json' },
+                  body: return_body)
     end
     let(:ticket_found) { ticket.find_by_id(id) }
     let(:request_put) do
@@ -50,7 +50,7 @@ RSpec.describe TopdeskAPI::Resources::Ticket do
     end
 
     context 'when find ticket' do
-      let(:return_body) { { :id => '1' }.to_json }
+      let(:return_body) { { id: '1' }.to_json }
 
       before do
         request_get
@@ -78,8 +78,8 @@ RSpec.describe TopdeskAPI::Resources::Ticket do
       stub_request(
         :get,
         "https://example.topdesk.com/tas/api/incidents/id/#{id}"
-      ).to_return(:headers => { :content_type => 'application/json' },
-                  :body => body)
+      ).to_return(headers: { content_type: 'application/json' },
+                  body: body)
     end
 
     context 'when find a ticket' do
@@ -125,7 +125,7 @@ RSpec.describe TopdeskAPI::Resources::Ticket do
   end
 
   describe 'change value of variables instances' do
-    let(:params) { { :caller => { :id => '1' } } }
+    let(:params) { { caller: { id: '1' } } }
     let(:ticket) { described_class.new(client, params) }
 
     it 'set processes status id by name' do

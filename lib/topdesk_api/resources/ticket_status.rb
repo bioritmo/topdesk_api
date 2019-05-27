@@ -5,12 +5,12 @@ module TopdeskAPI
   module Resources
     class TicketStatus
       STATUS = {
-        :NEW => 'a3e2ad64-16e2-4fe3-9c66-9e50ad9c4d69',
-        :OPEN => '2817418e-5afc-4a8e-b2e4-7e4ff104e095',
-        :PENDING => 'dc36014f-d7c2-4f84-a23f-129ed93ee5d5',
-        :HOLDING => '2bc54ec5-fc66-4475-be58-03dc663a3c70',
-        :RESOLVED => '2f8c81f5-7f6c-4fad-b309-08b235bde18d',
-        :CLOSED => '9260dea6-e65c-4455-9f00-197fdb3383ce'
+        NEW: 'a3e2ad64-16e2-4fe3-9c66-9e50ad9c4d69',
+        OPEN: '2817418e-5afc-4a8e-b2e4-7e4ff104e095',
+        PENDING: 'dc36014f-d7c2-4f84-a23f-129ed93ee5d5',
+        HOLDING: '2bc54ec5-fc66-4475-be58-03dc663a3c70',
+        RESOLVED: '2f8c81f5-7f6c-4fad-b309-08b235bde18d',
+        CLOSED: '9260dea6-e65c-4455-9f00-197fdb3383ce'
       }.freeze
 
       attr_reader :processing_status_attr
