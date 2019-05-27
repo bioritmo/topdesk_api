@@ -25,15 +25,14 @@ module TopdeskAPI
 
     def options
       {
-        :headers => {
-          :accept => 'application/json',
-          :accept_encoding => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
-          :user_agent => 'TopdeskAPI Ruby'
+        headers: {
+          accept: 'application/json',
+          user_agent: 'TopdeskAPI Ruby'
         },
-        :request => {
-          :open_timeout => 10
+        request: {
+          open_timeout: 10
         },
-        :url => @url
+        url: @url
       }.merge(client_options)
     end
   end

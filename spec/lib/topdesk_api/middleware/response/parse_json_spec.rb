@@ -8,8 +8,8 @@ RSpec.describe TopdeskAPI::Middleware::Response::ParseJson do
   context 'with another content-type' do
     before do
       stub_request(:get, /blergh/).to_return(
-        :headers => { :content_type => 'application/xml' },
-        :body => '<nope></nope>'
+        headers: { content_type: 'application/xml' },
+        body: '<nope></nope>'
       )
     end
 
@@ -21,8 +21,8 @@ RSpec.describe TopdeskAPI::Middleware::Response::ParseJson do
   context 'with content-type application/json' do
     before do
       stub_request(:get, /blergh/).to_return(
-        :headers => { :content_type => 'application/json' },
-        :body => body
+        headers: { content_type: 'application/json' },
+        body: body
       )
     end
 

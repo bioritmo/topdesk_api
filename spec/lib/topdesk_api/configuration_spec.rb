@@ -22,7 +22,7 @@ RSpec.describe TopdeskAPI::Configuration do
   end
 
   it 'merge options with client_options' do
-    configuration.client_options = { :ssl => false }
+    configuration.client_options = { ssl: false }
     expect(configuration.options[:ssl]).to eq(false)
   end
 end

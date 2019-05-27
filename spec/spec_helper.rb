@@ -20,9 +20,9 @@ RSpec.configure do |config|
   def stub_json(verb, path_matcher, body = dump_json, options = {})
     stub_request(verb, path_matcher).to_return(
       {
-        :body => body,
-        :headers => { :content_type => "application/json",
-                      :content_length => body.size }
+        body: body,
+        headers: { content_type: "application/json",
+                   content_length: body.size }
       }.merge(options)
     )
   end
