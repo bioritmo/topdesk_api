@@ -6,16 +6,30 @@ RSpec.describe TopdeskAPI::Resources::Ticket do
   end
 
   describe 'create' do
-    let(:params) { { :caller => { :id => '1' } } }
+    let(:id) { '1' }
+    let(:params) { { :caller => { :id => id } } }
     let(:ticket) { described_class.new(client, params) }
+    let(:return_body) { { :id => id }.to_json }
     let(:request_post) do
-      stub_request(:post, 'https://example.topdesk.com/tas/api/incidents/')
+      stub_request(
+        :post,
+        'https://example.topdesk.com/tas/api/incidents/'
+      ).to_return(:headers => { :content_type => 'application/json' },
+                  :body => return_body)
     end
 
     it 'make connection' do
       request_post
       ticket.create(params)
       expect(request_post).to have_been_requested
+    end
+
+    context 'when objectivize' do
+      it 'return an id' do
+        request_post
+        ticket.create(params)
+        expect(ticket.id).to eq(id)
+      end
     end
   end
 
@@ -30,7 +44,7 @@ RSpec.describe TopdeskAPI::Resources::Ticket do
       ).to_return(:headers => { :content_type => 'application/json' },
                   :body => return_body)
     end
-    let(:ticket_found) { ticket.find_by_id(params) }
+    let(:ticket_found) { ticket.find_by_id(id) }
     let(:request_put) do
       stub_request(:put, "https://example.topdesk.com/tas/api/incidents/id/#{id}")
     end
@@ -50,7 +64,7 @@ RSpec.describe TopdeskAPI::Resources::Ticket do
 
       it 'set attributes' do
         ticket_found.action = '<p> Issue solved </p>'
-        ticket_found.processing_status_id = 'OPEN'
+        ticket_found.processing_status = 'OPEN'
         ticket_found.update!
         expect(ticket_found.action).to eq('<p> Issue solved </p>')
       end
@@ -59,8 +73,7 @@ RSpec.describe TopdeskAPI::Resources::Ticket do
 
   describe 'find' do
     let(:id) { '1' }
-    let(:params) { { :id => id } }
-    let(:ticket) { described_class.new(client, params) }
+    let(:ticket) { described_class.new(client, id) }
     let(:request_get) do
       stub_request(
         :get,
@@ -78,13 +91,13 @@ RSpec.describe TopdeskAPI::Resources::Ticket do
             }
         }'
       end
-      let(:ticket_found) { ticket.find_by_id(params) }
+      let(:ticket_found) { ticket.find_by_id(id) }
 
       before { request_get }
 
       it 'by id' do
         request_get
-        ticket.find_by_id(params)
+        ticket.find_by_id(id)
         expect(request_get).to have_been_requested
       end
 
@@ -101,7 +114,7 @@ RSpec.describe TopdeskAPI::Resources::Ticket do
 
     context 'when do not found a ticket' do
       let(:body) { '' }
-      let(:ticket_not_found) { ticket.find_by_id(params) }
+      let(:ticket_not_found) { ticket.find_by_id(id) }
 
       before { request_get }
 
@@ -116,8 +129,8 @@ RSpec.describe TopdeskAPI::Resources::Ticket do
     let(:ticket) { described_class.new(client, params) }
 
     it 'set processes status id by name' do
-      ticket.processing_status_id = 'NEW'
-      expect(ticket.processing_status_id).to eq('a3e2ad64-16e2-4fe3-9c66-9e50ad9c4d69')
+      ticket.processing_status = 'NEW'
+      expect(ticket.processing_status).to eq('a3e2ad64-16e2-4fe3-9c66-9e50ad9c4d69')
     end
   end
 end

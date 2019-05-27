@@ -2,7 +2,7 @@ module TopdeskAPI
   module Resources
     class Ticket
       attr_reader :client, :params
-      attr_accessor :action, :processing_status_id, :processing_status_name
+      attr_accessor :action, :processing_status, :processing_status_name
 
       def initialize(client, params)
         @client = client
@@ -10,16 +10,18 @@ module TopdeskAPI
       end
 
       def create(params)
-        client.connection.post('/tas/api/incidents/') do |req|
+        response = client.connection.post('/tas/api/incidents/') do |req|
           req.headers['Content-Type'] = 'application/json'
           req.body = params.to_json
         end
+
+        objectivize(response.body)
       end
 
       def update!
         params = {
           :action => action,
-          :processingStatus => { :id => processing_status_id }
+          :processingStatus => { :id => processing_status }
         }
 
         client.connection.put("/tas/api/incidents/id/#{id}") do |req|
@@ -28,9 +30,7 @@ module TopdeskAPI
         end
       end
 
-      def find_by_id!(params)
-        id = params['id'] || params[:id]
-
+      def find_by_id!(id)
         response = client.connection.get("/tas/api/incidents/id/#{id}") do |req|
           req.headers['Content-Type'] = 'application/json'
           yield req if block_given?
@@ -40,8 +40,8 @@ module TopdeskAPI
       end
 
       # Finds, returning nil if it fails
-      def find_by_id(params)
-        find_by_id!(params)
+      def find_by_id(id)
+        find_by_id!(id)
       rescue TopdeskAPI::Error::ClientError
         nil
       end
@@ -51,8 +51,8 @@ module TopdeskAPI
       # example ticket.processing_status = New
       # returns id "123"
       # rubocop:disable DuplicateMethods
-      def processing_status_id=(status)
-        @processing_status_id = TopdeskAPI::Resources::TicketStatus.id(status)
+      def processing_status=(status)
+        @processing_status = TopdeskAPI::Resources::TicketStatus.id(status)
       end
       # rubocop:enable DuplicateMethods
 
@@ -73,8 +73,8 @@ module TopdeskAPI
       def normalize_process_status(body)
         return if body['processingStatus'].nil?
 
-        processing_status_id = body['processingStatus']['id']
-        TopdeskAPI::Resources::TicketStatus.name(processing_status_id)
+        processing_status = body['processingStatus']['id']
+        TopdeskAPI::Resources::TicketStatus.name(processing_status)
       end
     end
   end
