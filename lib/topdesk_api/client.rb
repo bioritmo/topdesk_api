@@ -24,6 +24,22 @@ module TopdeskAPI
       TopdeskAPI::Resources::Ticket.new(self, params)
     end
 
+    def department
+      TopdeskAPI::Resources::Department.new(self)
+    end
+
+    def branch
+      TopdeskAPI::Resources::Branch.new(self)
+    end
+
+    def operator(params ={})
+      TopdeskAPI::Resources::Operator.new(self, params)
+    end
+
+    def person(params ={})
+      TopdeskAPI::Resources::Person.new(self, params)
+    end
+
     def insert_callback(&block)
       @callbacks << block
     end

@@ -2,6 +2,8 @@ require "bundler/setup"
 require "topdesk_api"
 require 'webmock/rspec'
 
+Dir[File.dirname(__FILE__) + "/support/**/*.rb"].each {|f| require f}
+
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
   config.example_status_persistence_file_path = ".rspec_status"
@@ -26,4 +28,6 @@ RSpec.configure do |config|
       }.merge(options)
     )
   end
+
+  config.shared_context_metadata_behavior = :apply_to_host_groups
 end

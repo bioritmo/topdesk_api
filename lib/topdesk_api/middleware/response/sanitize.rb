@@ -3,7 +3,7 @@ module TopdeskAPI
     module Response
       class Sanitize < Faraday::Response::Middleware
         def on_complete(env)
-          env[:body].scrub!('')
+          env[:body].scrub!('') if env[:body]
         end
       end
     end

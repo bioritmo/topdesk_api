@@ -50,6 +50,16 @@ RSpec.describe TopdeskAPI::Middleware::Response::RaiseError do
       end
     end
 
+    context 'with status = 204' do
+      let(:status) { 204 }
+
+      it 'raise RecordNotFound when status is 204' do
+        expect { client.connection.get '/non_existent' }.to(
+          raise_error(TopdeskAPI::Error::RecordNotFound)
+        )
+      end
+    end
+
     context 'with status in 400...600' do
       let(:status) { 500 }
 
@@ -98,13 +108,13 @@ RSpec.describe TopdeskAPI::Middleware::Response::RaiseError do
       end
 
       context 'with a body' do
-        let(:body) { JSON.dump(details: 'hello') }
+        let(:body) { JSON.dump(message: 'hello') }
 
         it 'return RecordInvalid with proper message' do
           client.connection.get '/non_existent'
         rescue TopdeskAPI::Error::RecordInvalid => e
           expect(e.errors).to eq('hello')
-          expect(e.to_s).to eq('TopdeskAPI::Error::RecordInvalid: hello')
+          expect(e.to_s).to eq('Error: hello')
         end
       end
     end
@@ -119,13 +129,13 @@ RSpec.describe TopdeskAPI::Middleware::Response::RaiseError do
       end
 
       context 'with a body' do
-        let(:body) { JSON.dump(description: 'this file is big') }
+        let(:body) { JSON.dump(message: 'this file is big') }
 
         it 'return RecordInvalid with proper message' do
           client.connection.get '/non_existent'
         rescue TopdeskAPI::Error::RecordInvalid => e
           expect(e.errors).to eq('this file is big')
-          expect(e.to_s).to eq('TopdeskAPI::Error::RecordInvalid: this file is big')
+          expect(e.to_s).to eq('Error: this file is big')
         end
       end
     end

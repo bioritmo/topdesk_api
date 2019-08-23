@@ -35,7 +35,41 @@ RSpec.describe TopdeskAPI::Client do
 
   context 'when call ticket' do
     it 'initially ticket class' do
-      expect(client.ticket.instance_of?(TopdeskAPI::Resources::Ticket)).to be(true)
+      expect(
+        client.ticket.instance_of?(TopdeskAPI::Resources::Ticket)
+      ).to be(true)
+    end
+  end
+
+  context 'when call operator' do
+    it 'initially operator class' do
+      expect(
+        client.operator.instance_of?(TopdeskAPI::Resources::Operator)
+      ).to be(true)
+    end
+  end
+
+  context 'when call person' do
+    it 'initially operator class' do
+      expect(
+        client.person.instance_of?(TopdeskAPI::Resources::Person)
+      ).to be(true)
+    end
+  end
+
+  context 'when call department' do
+    it 'initially department class' do
+      expect(
+        client.department.instance_of?(TopdeskAPI::Resources::Department)
+      ).to be(true)
+    end
+  end
+
+  context 'when call branch' do
+    it 'initially branch class' do
+      expect(
+        client.branch.instance_of?(TopdeskAPI::Resources::Branch)
+      ).to be(true)
     end
   end
 end

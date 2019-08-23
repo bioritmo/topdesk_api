@@ -1,9 +1,6 @@
 RSpec.describe TopdeskAPI::Resources::Ticket do
-  let(:client) do
-    TopdeskAPI::Client.new do |config|
-      config.url = 'https://example.topdesk.com/'
-    end
-  end
+  include_context 'client_service'
+  let(:url_server) { 'https://example.topdesk.com' }
 
   describe 'create' do
     let(:id) { '1' }
@@ -13,7 +10,7 @@ RSpec.describe TopdeskAPI::Resources::Ticket do
     let(:request_post) do
       stub_request(
         :post,
-        'https://example.topdesk.com/tas/api/incidents/'
+        "#{url_server}/tas/api/incidents/"
       ).to_return(headers: { content_type: 'application/json' },
                   body: return_body)
     end
@@ -40,7 +37,7 @@ RSpec.describe TopdeskAPI::Resources::Ticket do
     let(:request_get) do
       stub_request(
         :get,
-        "https://example.topdesk.com/tas/api/incidents/id/#{id}"
+        "#{url_server}/tas/api/incidents/id/#{id}"
       ).to_return(headers: { content_type: 'application/json' },
                   body: return_body)
     end
@@ -77,7 +74,7 @@ RSpec.describe TopdeskAPI::Resources::Ticket do
     let(:request_get) do
       stub_request(
         :get,
-        "https://example.topdesk.com/tas/api/incidents/id/#{id}"
+        "#{url_server}/tas/api/incidents/id/#{id}"
       ).to_return(headers: { content_type: 'application/json' },
                   body: body)
     end

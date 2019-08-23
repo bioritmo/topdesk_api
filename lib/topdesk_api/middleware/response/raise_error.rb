@@ -12,11 +12,11 @@ module TopdeskAPI
 
         def on_complete(env)
           case env[:status]
-          when 404
+          when 404, 204
             raise Error::RecordNotFound, env
-          when 422, 413
+          when 422, 403, 400, 413
             raise Error::RecordInvalid, env
-          when 100..199, 400..599, 300..303, 305..399
+          when 100..199, 401..599, 300..303, 305..399
             raise Error::NetworkError, env
           end
         end
