@@ -26,7 +26,7 @@ RSpec.describe TopdeskAPI::Actions::Update do
 
     context 'operators' do
       let(:url) { 'operators' }
-      let(:base_url) { "#{url_server}/tas/api/operators/id/#{id}" }
+      let(:base_url) { "#{url_server}/tas/api/operators/id/#{id}/" }
       let(:body) { { id: id }.to_json }
 
       context 'when update an operator' do
@@ -53,7 +53,7 @@ RSpec.describe TopdeskAPI::Actions::Update do
 
     context 'when trying to update a new person' do
       let(:url) { 'persons' }
-      let(:base_url) { "#{url_server}/tas/api/persons/id/#{id}" }
+      let(:base_url) { "#{url_server}/tas/api/persons/id/#{id}/" }
       let(:body) { { id: id }.to_json }
 
       context 'and response return 200' do

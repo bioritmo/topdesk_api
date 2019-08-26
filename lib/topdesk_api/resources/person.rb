@@ -9,14 +9,15 @@ module TopdeskAPI
         @ssp_login_name = ssp_login_name
       end
 
-      def update(id, params)
-        raise ArgumentError, "Please give the id" if id.nil? || id.empty?
+      def update(id, params, details=nil)
+        raise ArgumentError, 'Please give the id' if id.nil? || id.empty?
 
         TopdeskAPI::Actions::Update.call(
           client,
           id,
           params,
-          'persons'
+          'persons',
+          details
         )
 
       rescue TopdeskAPI::Error::RecordInvalid => e
@@ -38,6 +39,10 @@ module TopdeskAPI
         false
       rescue TopdeskAPI::Error::ClientError
         false
+      end
+
+      def private_details(id, params)
+        update(id, params, 'privateDetails')
       end
 
       def find_by(ssp_login_name)

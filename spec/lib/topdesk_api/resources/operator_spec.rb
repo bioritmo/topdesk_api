@@ -12,7 +12,7 @@ RSpec.describe TopdeskAPI::Resources::Operator do
   describe 'update operator' do
     subject { operator.update(id, params_topdesk) }
 
-    let(:base_url) { "#{url_server}/tas/api/operators/id/#{id}" }
+    let(:base_url) { "#{url_server}/tas/api/operators/id/#{id}/" }
     let(:request_put) do
       stub_request(:put, base_url).to_return(
         headers: { content_type: 'application/json' },

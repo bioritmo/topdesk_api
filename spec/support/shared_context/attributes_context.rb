@@ -24,9 +24,14 @@ shared_context 'params_topdesk' do
 end
 
 shared_context 'client_service' do
+  let(:username) { nil }
+  let(:password) { nil }
+
   let(:client) do
     TopdeskAPI::Client.new do |config|
       config.url = url_server
+      config.username = username
+      config.password = password
     end
   end
 end

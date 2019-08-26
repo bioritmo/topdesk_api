@@ -11,10 +11,9 @@ RSpec.describe TopdeskAPI::Resources::Person do
   let(:person) { described_class.new(client, ssp_login_name) }
 
   describe '#update' do
-
     subject { person.update(id, params_topdesk) }
 
-    let(:base_url) { "#{url_server}/tas/api/persons/id/#{id}" }
+    let(:base_url) { "#{url_server}/tas/api/persons/id/#{id}/" }
     let(:request_put) do
       stub_request(:put, base_url).to_return(
         headers: { content_type: 'application/json' },
@@ -57,6 +56,62 @@ RSpec.describe TopdeskAPI::Resources::Person do
 
     context 'when params are ok' do
       let(:body) { { id: id }.to_json }
+      let(:status) { 200 }
+
+      it 'update person' do
+        request_put
+        expect(subject).to be(true)
+        expect(person.errors).to be_nil
+      end
+    end
+  end
+
+  context '#private_details', failed_mode: :focus do
+    let(:params_details) do
+      { address: { country: { id: '6b1efe99-69e0-4e84-820f-caaf11cfd749' } } }
+    end
+
+    subject { person.private_details(id, params_details) }
+
+    let(:base_url) { "#{url_server}/tas/api/persons/id/#{id}/privateDetails" }
+    let(:request_put) do
+      stub_request(:put, base_url).to_return(
+        headers: { content_type: 'application/json' },
+        status: status,
+        body: body
+      )
+    end
+
+    context 'raise errors' do
+      context 'when id is empty' do
+        let(:id) { '' }
+
+        it 'ArgumentError' do
+          expect { subject }.to raise_error(ArgumentError)
+        end
+      end
+
+      context 'when id is nil' do
+        let(:id) { nil }
+
+        it 'ArgumentError' do
+          expect { subject }.to raise_error(ArgumentError)
+        end
+      end
+
+      context 'when person id could not be found' do
+        let(:body) { nil }
+        let(:status) { 404 }
+
+        it 'return errors' do
+          request_put
+          expect(subject).to be(false)
+        end
+      end
+    end
+
+    context 'when params are ok' do
+      let(:body) { { personId: id }.to_json }
       let(:status) { 200 }
 
       it 'update person' do

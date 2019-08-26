@@ -28,6 +28,10 @@ module TopdeskAPI
       TopdeskAPI::Resources::Department.new(self)
     end
 
+    def country
+      TopdeskAPI::Resources::Country.new(self)
+    end
+
     def branch
       TopdeskAPI::Resources::Branch.new(self)
     end
