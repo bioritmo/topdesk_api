@@ -28,6 +28,10 @@ module TopdeskAPI
       TopdeskAPI::Resources::Department.new(self)
     end
 
+    def budget_holder
+      TopdeskAPI::Resources::BudgetHolder.new(self)
+    end
+
     def country
       TopdeskAPI::Resources::Country.new(self)
     end
