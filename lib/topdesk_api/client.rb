@@ -40,11 +40,11 @@ module TopdeskAPI
       TopdeskAPI::Resources::Branch.new(self)
     end
 
-    def operator(params ={})
+    def operator(params = {})
       TopdeskAPI::Resources::Operator.new(self, params)
     end
 
-    def person(params ={})
+    def person(params = {})
       TopdeskAPI::Resources::Person.new(self, params)
     end
 

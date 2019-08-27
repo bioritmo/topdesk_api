@@ -1,15 +1,17 @@
 RSpec.describe TopdeskAPI::Resources::Branch do
-  include_context 'client_service'
+  include_context 'when have client service'
 
-  let(:url_server) { "https://example/tas/api/branches" }
+  let(:url_server) { 'https://example/tas/api/branches' }
   let(:name) { 'ABR' }
   let(:id) { 'f3431ec7-68d8-4bb9-86d7-3a13fdaf779a' }
   let(:branch) { described_class.new(client) }
 
-  context '#find_by_name' do
+  context 'when try to find by name' do
+    let(:branch_find) { branch.find_by_name(name) }
+
     let(:params_url) { "?name=#{name}&page_size=100" }
     let(:return_body) do
-      [{"id": "#{id}", "name": "#{name}"}].to_json
+      [{ "id": id.to_s, "name": name.to_s }].to_json
     end
     let(:mount_url) { url_server + params_url }
     let(:request_get) do
@@ -20,13 +22,12 @@ RSpec.describe TopdeskAPI::Resources::Branch do
     end
 
     before { request_get }
-    subject { branch.find_by_name(name) }
 
     context 'when find a branch by name' do
       let(:status) { 200 }
 
       it 'return the branch' do
-        expect(subject.id).to eq(id)
+        expect(branch_find.id).to eq(id)
       end
     end
 
@@ -34,7 +35,7 @@ RSpec.describe TopdeskAPI::Resources::Branch do
       let(:status) { 204 }
       let(:name) { 'not_found_branch' }
 
-      it { is_expected.to be_nil }
+      it { expect(branch_find).to be_nil }
     end
   end
 end

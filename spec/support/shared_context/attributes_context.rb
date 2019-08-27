@@ -1,4 +1,4 @@
-shared_context 'params_topdesk' do
+shared_context 'when have params topdesk' do
   let(:params_topdesk) do
     {
       surName: last_name,
@@ -23,7 +23,7 @@ shared_context 'params_topdesk' do
   let(:location_id) { '1e752061-ce35-4385-9865-7854090ea82d' }
 end
 
-shared_context 'client_service' do
+shared_context 'when have client service' do
   let(:username) { nil }
   let(:password) { nil }
 

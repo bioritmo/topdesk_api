@@ -1,5 +1,5 @@
 RSpec.describe TopdeskAPI::Resources::Ticket do
-  include_context 'client_service'
+  include_context 'when have client service'
   let(:url_server) { 'https://example.topdesk.com' }
 
   describe 'create' do

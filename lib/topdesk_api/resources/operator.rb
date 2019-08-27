@@ -12,10 +12,9 @@ module TopdeskAPI
       end
 
       def update(id, params)
-        raise ArgumentError, "Please give the id" if id.nil? || id.empty?
+        raise ArgumentError, 'Please give the id' if id.nil? || id.empty?
 
         TopdeskAPI::Actions::Update.call(client, id, params, 'operators')
-
       rescue TopdeskAPI::Error::RecordInvalid => e
         @errors = e.errors
         false

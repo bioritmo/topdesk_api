@@ -1,7 +1,9 @@
 require 'spec_helper'
 
 RSpec.describe TopdeskAPI::Actions::Update do
-  include_context 'params_topdesk'
+  include_context 'when have params topdesk'
+  let(:update) { described_class.call(client, id, params_topdesk, url) }
+
   let(:client) do
     TopdeskAPI::Client.new do |config|
       config.url = url_server
@@ -13,9 +15,7 @@ RSpec.describe TopdeskAPI::Actions::Update do
   let(:id) { 'd2520ee7-7414-4c8c-9447-8582279d6cfb' }
   let(:url_server) { 'https://example.topdesk.com' }
 
-  subject { described_class.call(client, id, params_topdesk, url) }
-
-  describe '#update' do
+  describe 'when try to update' do
     let(:request_put) do
       stub_request(:put, base_url).to_return(
         headers: { content_type: 'application/json' },
@@ -24,29 +24,27 @@ RSpec.describe TopdeskAPI::Actions::Update do
       )
     end
 
-    context 'operators' do
+    context 'when try update operators' do
       let(:url) { 'operators' }
       let(:base_url) { "#{url_server}/tas/api/operators/id/#{id}/" }
       let(:body) { { id: id }.to_json }
 
-      context 'when update an operator' do
-        context 'and response return 200' do
-          let(:status) { 200 }
+      context 'when response return 200' do
+        let(:status) { 200 }
 
-          it 'update operator' do
-            request_put
-            expect(subject).to be(true)
-          end
+        it 'update operator' do
+          request_put
+          expect(update).to be(true)
         end
+      end
 
-        context 'when response return 400' do
-          let(:login) { ' ' }
-          let(:status) { 400 }
+      context 'when response return 400' do
+        let(:login) { ' ' }
+        let(:status) { 400 }
 
-          it 'does not update operator' do
-            request_put
-            expect { subject }.to raise_error(TopdeskAPI::Error::RecordInvalid)
-          end
+        it 'does not update operator' do
+          request_put
+          expect { update }.to raise_error(TopdeskAPI::Error::RecordInvalid)
         end
       end
     end
@@ -56,12 +54,12 @@ RSpec.describe TopdeskAPI::Actions::Update do
       let(:base_url) { "#{url_server}/tas/api/persons/id/#{id}/" }
       let(:body) { { id: id }.to_json }
 
-      context 'and response return 200' do
+      context 'when service response return 200' do
         let(:status) { 200 }
 
         it 'update person' do
           request_put
-          expect(subject).to be(true)
+          expect(update).to be(true)
         end
       end
     end

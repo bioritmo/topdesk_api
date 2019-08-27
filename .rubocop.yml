@@ -98,6 +98,9 @@ Metrics/ClassLength:
 Metrics/MethodLength:
   Enabled: false
 
+RSpec/VerifiedDoubles:
+  Enabled: false
+
 RSpec/PredicateMatcher:
   EnforcedStyle: inflected
 

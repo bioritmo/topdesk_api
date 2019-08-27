@@ -40,7 +40,7 @@ module TopdeskAPI
       end
 
       def upcase(value)
-        value.upcase if value
+        value&.upcase
       end
     end
   end

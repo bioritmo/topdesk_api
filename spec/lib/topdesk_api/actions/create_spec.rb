@@ -1,7 +1,9 @@
 require 'spec_helper'
 
 RSpec.describe TopdeskAPI::Actions::Create do
-  include_context 'params_topdesk'
+  include_context 'when have params topdesk'
+
+  let(:create) { described_class.call(client, params_topdesk, url) }
 
   let(:client) do
     TopdeskAPI::Client.new do |config|
@@ -10,10 +12,8 @@ RSpec.describe TopdeskAPI::Actions::Create do
   end
   let(:url_server) { 'https://example' }
 
-  subject { described_class.call(client, params_topdesk, url) }
-
-  describe '#create' do
-    context 'persons' do
+  describe 'when try to create' do
+    context 'when is a persons' do
       let(:url) { 'persons' }
       let(:tas_login) { { tasLoginName: login } }
       let(:id) { '4762f0a5-3acd-47cd-9f90-993b30a934d5' }
@@ -27,14 +27,14 @@ RSpec.describe TopdeskAPI::Actions::Create do
         )
       end
 
-      context 'create an person' do
-        context 'when response return 200' do
+      context 'when try create' do
+        context 'when service response return 200' do
           let(:status) { 200 }
           let(:body) { { id: id }.to_json }
 
           it 'return person' do
             request_post
-            expect(subject).to be(true)
+            expect(create).to be(true)
           end
         end
 
@@ -46,7 +46,7 @@ RSpec.describe TopdeskAPI::Actions::Create do
 
           it 'raise error' do
             request_post
-            expect { subject }.to raise_error(TopdeskAPI::Error::RecordInvalid)
+            expect { create }.to raise_error(TopdeskAPI::Error::RecordInvalid)
           end
         end
       end

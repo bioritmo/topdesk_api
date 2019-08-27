@@ -9,7 +9,7 @@ module TopdeskAPI
         @ssp_login_name = ssp_login_name
       end
 
-      def update(id, params, details=nil)
+      def update(id, params, details = nil)
         raise ArgumentError, 'Please give the id' if id.nil? || id.empty?
 
         TopdeskAPI::Actions::Update.call(
@@ -19,7 +19,6 @@ module TopdeskAPI
           'persons',
           details
         )
-
       rescue TopdeskAPI::Error::RecordInvalid => e
         @errors = e.errors
         false
@@ -33,7 +32,6 @@ module TopdeskAPI
           params,
           'persons'
         )
-
       rescue TopdeskAPI::Error::RecordInvalid => e
         @errors = e.errors
         false

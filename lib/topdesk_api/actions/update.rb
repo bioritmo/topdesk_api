@@ -6,7 +6,7 @@ module TopdeskAPI
       attr_reader :client, :id, :params, :url, :details
       attr_accessor :errors
 
-      def self.call(client, id, params, url, details=nil)
+      def self.call(client, id, params, url, details = nil)
         new(client, id, params, url, details).update
       end
 
