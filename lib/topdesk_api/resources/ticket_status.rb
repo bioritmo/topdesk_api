@@ -28,8 +28,7 @@ module TopdeskAPI
       end
 
       def find_by_name
-        status_name = STATUS.key(processing_status_attr)
-        status_name.to_s
+        STATUS.key(processing_status_attr).to_s
       end
 
       def find_by_id

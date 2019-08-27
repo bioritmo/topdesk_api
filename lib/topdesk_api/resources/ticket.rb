@@ -1,6 +1,8 @@
 module TopdeskAPI
   module Resources
     class Ticket
+      include TopdeskAPI::Objectivize
+
       attr_reader :client, :params
       attr_accessor :action, :processing_status, :processing_status_name
 
@@ -42,7 +44,7 @@ module TopdeskAPI
       # Finds, returning nil if it fails
       def find_by_id(id)
         find_by_id!(id)
-      rescue TopdeskAPI::Error::ClientError
+      rescue TopdeskAPI::Error::RecordNotFound
         nil
       end
 
@@ -59,14 +61,8 @@ module TopdeskAPI
       private
 
       def objectivize(body)
-        return if body == ''
-
-        body.each do |name, value|
-          singleton_class.class_eval { attr_accessor name }
-          send("#{name}=", value)
-        end
         self.processing_status_name = normalize_process_status(body)
-        self
+        super
       end
 
       # Return status normalized by id

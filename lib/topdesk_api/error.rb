@@ -6,7 +6,7 @@ module TopdeskAPI
 
       def to_s
         if response
-          "#{super} -- #{response.method} #{response.url}"
+          "#{super} -- #{response[:method]} #{response[:url]}"
         else
           super
         end
@@ -19,18 +19,20 @@ module TopdeskAPI
       def initialize(*)
         super
 
-        @errors = response[:body]['details'] || response[:body]['description'] if response[:body].is_a?(Hash)
-
+        body = response[:body]
+        body = body.is_a?(Array) ? body.first : body
+        @errors = body['message'] if body.is_a?(Hash)
         @errors ||= {}
       end
 
       def to_s
-        "#{self.class.name}: #{@errors}"
+        "Error: #{@errors}"
       end
     end
 
     class NetworkError < ClientError; end
     class RecordNotFound < ClientError; end
     class RateLimited < ClientError; end
+    class ParamsRequired < ClientError; end
   end
 end
