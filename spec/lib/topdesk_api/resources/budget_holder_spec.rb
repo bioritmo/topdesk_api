@@ -4,7 +4,7 @@ RSpec.describe TopdeskAPI::Resources::BudgetHolder do
   let(:url_server) { "https://example/tas/api/budgetholders" }
   let(:name) { 'SP1' }
   let(:id) { '6b1efe99-69e0-4e84-820f-caaf11cfd749' }
-  let(:country) { described_class.new(client) }
+  let(:budget_holder) { described_class.new(client) }
 
   context '#find_by_name' do
     let(:params_url) { "?name=#{name}&page_size=100" }
@@ -20,9 +20,9 @@ RSpec.describe TopdeskAPI::Resources::BudgetHolder do
     end
 
     before { request_get }
-    subject { country.find_by_name(name) }
+    subject { budget_holder.find_by_name(name) }
 
-    context 'when find a country by name' do
+    context 'when find a budget holder by name' do
       let(:status) { 200 }
 
       it 'return the budget holder' do

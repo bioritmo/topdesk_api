@@ -8,13 +8,13 @@ module TopdeskAPI
       end
 
       def find_by_name(name)
-        country(name)
+        budget_holder(name)
       end
 
       private
 
-      def country(name)
-        @country ||= TopdeskAPI::Actions::FindBy.call(
+      def budget_holder(name)
+        @budget_holder ||= TopdeskAPI::Actions::FindBy.call(
           client,
           'name',
           name,
