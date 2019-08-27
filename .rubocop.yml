@@ -23,6 +23,10 @@ Naming/PredicateName:
 Style/AsciiComments:
   Enabled: false
 
+# to avoid problems in old ruby versions
+Style/SafeNavigation:
+  Enabled: false
+
 Style/FrozenStringLiteralComment:
   Enabled: false
 
