@@ -1,5 +1,3 @@
-require 'byebug'
-
 module TopdeskAPI
   module Actions
     class Update
