@@ -32,6 +32,10 @@ module TopdeskAPI
       TopdeskAPI::Resources::BudgetHolder.new(self)
     end
 
+    def person_extra_field_a
+      TopdeskAPI::Resources::PersonExtraFieldA.new(self)
+    end
+
     def country
       TopdeskAPI::Resources::Country.new(self)
     end

@@ -72,4 +72,12 @@ RSpec.describe TopdeskAPI::Client do
       ).to be(true)
     end
   end
+
+  context 'when call person_extra_field_a' do
+    it 'initially person_extra_field_a class' do
+      expect(
+        client.person_extra_field_a.instance_of?(TopdeskAPI::Resources::PersonExtraFieldA)
+      ).to be(true)
+    end
+  end
 end
