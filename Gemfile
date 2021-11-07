@@ -15,6 +15,8 @@ gem "rubocop-rspec"
 gem "vcr"
 gem "webmock"
 
+gem 'ffi', '1.15.3'
+
 group :test do
   gem "byebug"
   gem "simplecov"
