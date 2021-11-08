@@ -122,6 +122,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  addressable
   bundler (~> 2.1)
   byebug
   ffi (= 1.15.3)

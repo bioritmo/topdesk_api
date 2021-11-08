@@ -4,6 +4,7 @@ git_source(:github) {|repo_name| "https://github.com/#{repo_name}" }
 
 # Specify your gem's dependencies in topdesk_api.gemspec
 
+gem 'addressable'
 gem "guard"
 gem "guard-rspec"
 gem "json"

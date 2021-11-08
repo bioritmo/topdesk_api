@@ -17,7 +17,9 @@ module TopdeskAPI
       end
 
       def update
-        client.connection.put("tas/api/#{url}/id/#{id}/#{details}") do |request|
+        url_mounted = Addressable::URI.encode("tas/api/#{url}/id/#{id}/#{details}")
+
+        client.connection.put(url_mounted) do |request|
           request.headers['Content-Type'] = 'application/json'
           request.body = params.to_json
         end

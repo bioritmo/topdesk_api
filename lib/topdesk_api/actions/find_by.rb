@@ -19,7 +19,8 @@ module TopdeskAPI
       end
 
       def find_by
-        url_mounted = "/tas/api/#{url}?#{parameter}=#{value}&page_size=100"
+        url_mounted = Addressable::URI.encode("/tas/api/#{url}?#{parameter}=#{value}&page_size=100")
+
         response = client.connection.get(url_mounted) do |req|
           req.headers['Content-Type'] = 'application/json'
           yield req if block_given?
