@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    topdesk_api (1.1.0)
+    topdesk_api (2.0.0)
       faraday
 
 GEM
