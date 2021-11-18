@@ -8,7 +8,7 @@ RSpec.describe TopdeskAPI::Middleware::Response::RaiseError do
   context 'with a failed connection' do
     context 'when connection failed' do
       before do
-        stub_request(:any, /.*/).to_raise(Faraday::Error::ConnectionFailed)
+        stub_request(:any, /.*/).to_raise(Faraday::ConnectionFailed)
       end
 
       it 'raise NetworkError' do
